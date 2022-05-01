@@ -13,6 +13,6 @@ jobs:
           command: mvn -s .circleci/.settings.xml clean test
 
 workflows:
-  starter-pom-build-and-deploy:
+  build-and-test:
     jobs:
       - build-and-test
