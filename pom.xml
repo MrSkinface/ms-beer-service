@@ -5,11 +5,10 @@
     <parent>
         <groupId>ua.mike</groupId>
         <artifactId>ms-brewery-starter</artifactId>
-        <version>0.0.3</version>
+        <version>0.0.4</version>
     </parent>
-    <groupId>ua.mike</groupId>
-    <artifactId>micro-beer-service</artifactId>
-    <version>1.0</version>
+    <artifactId>ms-beer-service</artifactId>
+    <version>1.0.0</version>
     <name>ms-beer-service</name>
     <description>ms-beer-service</description>
 
@@ -40,6 +39,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
 

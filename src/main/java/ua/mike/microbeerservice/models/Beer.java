@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 
@@ -28,7 +29,8 @@ public class Beer {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
+    @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
     @Version
     private Integer version;
@@ -41,6 +43,7 @@ public class Beer {
     private OffsetDateTime updateDateTime;
     @NotBlank
     @Length(min = 3, max = 100)
+    @Column(columnDefinition = "varchar(255)")
     private String beerName;
     @NotNull
     private BeerStyle beerStyle;
