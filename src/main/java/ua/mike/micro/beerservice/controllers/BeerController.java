@@ -1,13 +1,14 @@
-package ua.mike.microbeerservice.controllers;
+package ua.mike.micro.beerservice.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ua.mike.microbeerservice.models.Beer;
-import ua.mike.microbeerservice.services.BeerService;
+import ua.mike.micro.beerservice.dto.BeerDto;
+import ua.mike.micro.beerservice.services.BeerService;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,14 +21,19 @@ public class BeerController {
         this.service = service;
     }
 
+    @GetMapping
+    public List<BeerDto> list(@RequestParam(required = false) boolean showInventory) {
+        return service.list(showInventory);
+    }
+
     @GetMapping("/{id}")
-    public Beer get(@PathVariable("id") UUID id) {
-        return service.get(id);
+    public BeerDto get(@PathVariable("id") UUID id, @RequestParam(required = false) boolean showInventory) {
+        return service.get(id, showInventory);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> save(@Valid @RequestBody Beer beer) {
+    public ResponseEntity<Void> save(@Valid @RequestBody BeerDto beer) {
         final var saved = service.save(beer);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -37,7 +43,7 @@ public class BeerController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable("id") UUID id, @Valid @RequestBody Beer beer) {
+    public void update(@PathVariable("id") UUID id, @Valid @RequestBody BeerDto beer) {
         service.update(id, beer);
     }
 }

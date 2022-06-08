@@ -1,4 +1,4 @@
-package ua.mike.microbeerservice.controllers;
+package ua.mike.micro.beerservice.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,15 +8,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ua.mike.microbeerservice.models.Beer;
-import ua.mike.microbeerservice.models.BeerStyle;
-import ua.mike.microbeerservice.repo.BeerRepo;
-import ua.mike.microbeerservice.services.BeerService;
+import ua.mike.micro.beerservice.dto.BeerDto;
+import ua.mike.micro.beerservice.models.BeerStyle;
+import ua.mike.micro.beerservice.services.BeerService;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -28,7 +28,7 @@ class BeerControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    private Beer beer;
+    private BeerDto beer;
     @Autowired
     private ObjectMapper mapper;
 
@@ -37,16 +37,17 @@ class BeerControllerTest {
 
     @BeforeEach
     void setUp() {
-        beer = Beer.builder()
+        beer = BeerDto.builder()
                 .beerName("Some beer")
                 .beerStyle(BeerStyle.GOSE)
                 .price(new BigDecimal("100.05"))
+                .upc("12121212")
                 .build();
     }
 
     @Test
     void getTest() throws Exception {
-        when(service.get(any())).thenReturn(beer);
+        when(service.get(any(), anyBoolean())).thenReturn(beer);
         mvc.perform(get("/api/beer/" + UUID.randomUUID()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
