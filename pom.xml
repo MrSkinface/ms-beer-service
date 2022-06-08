@@ -18,7 +18,7 @@
             <url>https://jitpack.io</url>
         </repository>
         <repository>
-            <id>github</id>
+            <id>brewery-starter</id>
             <url>https://maven.pkg.github.com/MrSkinface/ms-brewery-starter</url>
         </repository>
     </repositories>
