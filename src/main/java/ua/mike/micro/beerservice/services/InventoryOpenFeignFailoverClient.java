@@ -10,10 +10,10 @@ import java.util.UUID;
 /**
  * Created by mike on 13.06.2022 13:45
  */
-@FeignClient(name = "ms-inventory-service")
-public interface InventoryOpenFeignClient {
+@FeignClient("ms-inventory-failover")
+public interface InventoryOpenFeignFailoverClient {
 
-    @RequestMapping(method = RequestMethod.GET, path = InventoryService.INVENTORY_PATH)
-    Integer getQtyOnHand(@PathVariable UUID id);
+    @RequestMapping(method = RequestMethod.GET, path = InventoryService.FALLBACK_PATH)
+    Integer getQtyOnHand();
 
 }
