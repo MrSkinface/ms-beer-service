@@ -13,11 +13,17 @@ import java.util.UUID;
 public class InventoryRestTemplateService implements InventoryService {
     @Value("${ms.inventory.service.host}")
     private String INVENTORY_URL;
+    @Value("${ms.inventory.service.user}")
+    private String inventoryUser;
+    @Value("${ms.inventory.service.pass}")
+    private String inventoryPass;
 
     private final RestTemplate rest;
 
     public InventoryRestTemplateService(RestTemplateBuilder builder) {
-        this.rest = builder.build();
+        this.rest = builder
+                .basicAuthentication(inventoryUser, inventoryPass)
+                .build();
     }
 
     @Override
