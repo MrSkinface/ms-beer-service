@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 @Slf4j
 @Service
-@Profile("local-discovery")
+@Profile("cloud")
 @RequiredArgsConstructor
 public class InventoryOpenFeignService implements InventoryService {
 

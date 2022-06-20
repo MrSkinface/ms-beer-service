@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.UUID;
 
 @Service
-@Profile("!local-discovery")
+@Profile("!cloud")
 public class InventoryRestTemplateService implements InventoryService {
     @Value("${ms.inventory.service.host}")
     private String INVENTORY_URL;
